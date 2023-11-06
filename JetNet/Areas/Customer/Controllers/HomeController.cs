@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics;
-using JetNet.Models;
+using Jet.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JetNet.Controllers
+namespace JetBook.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

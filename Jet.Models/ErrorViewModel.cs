@@ -1,4 +1,4 @@
-namespace JetNet.Models
+namespace Jet.Models
 {
     public class ErrorViewModel
     {
