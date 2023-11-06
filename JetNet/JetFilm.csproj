@@ -33,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Jet.DataAccess\Jet.DataAccess.csproj" />
     <ProjectReference Include="..\Jet.Models\Jet.Models.csproj" />
+    <ProjectReference Include="..\Jet.Utility\Jet.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>

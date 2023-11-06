@@ -5,7 +5,7 @@ using Jet.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace JetBook.Areas.Admin.Controllers
+namespace JetFilm.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class CategoryController : Controller

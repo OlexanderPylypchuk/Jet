@@ -2,7 +2,7 @@
 using Jet.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JetBook.Areas.Customer.Controllers
+namespace JetFilm.Areas.Customer.Controllers
 {
     [Area("Customer")]
     public class HomeController : Controller

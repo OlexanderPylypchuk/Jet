@@ -1,9 +1,10 @@
 ﻿@model FilmVM
 
-<form method="post">
+<form method="post" class="row" enctype="multipart/form-data">
+	<input asp-for="Film.Id" hidden />
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Create New Category</h2>
+			<h2 class="text-primary">@(Model.Film.Id==0?"Create":"Edit") Film</h2>
 			<hr />
 		</div>
 		<div asp-validation-summary="All"></div>
@@ -34,8 +35,7 @@
 		</div>
 		<div class="mb-3 row p-1">
 			<label asp-for="Film.ImgUrl" class="p-0"></label>
-			<input asp-for="Film.ImgUrl" class="form-control" autocomplete="off" />
-			<span asp-validation-for="Film.ImgUrl" class="text-danger"></span>
+			<input type="file" class="form-control" autocomplete="off" />
 		</div>
 		<div class="mb-3 row p-1">
 			<select asp-for="Film.CategoryId" asp-items="@Model.Category" class=" form-select">
@@ -46,7 +46,7 @@
 		</div>
 		<div class="row">
 			<div class="col-6 col-md-3">
-				<button type="submit" class="btn btn-primary form-control">Create</button>
+				<button type="submit" class="btn btn-primary form-control">@(Model.Film.Id == 0 ? "Create" : "Edit")</button>
 			</div>
 			<div class="col-6 col-md-3">
 				<a asp-controller="Film" asp-action="Index" class="btn btn-outline-secondary form-control">
