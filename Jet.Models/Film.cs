@@ -23,12 +23,13 @@ namespace Jet.Models
 		[Range(1, 2000)]
 		public int Price { get; set; }
 		[Required]
-		[Range(1, 10)]
+		[Range(1.0, 10.0)]
 		public double Score { get; set; }
 		public int CategoryId { get; set; }
 		[ForeignKey("CategoryId")]
 		[ValidateNever]
 		public Category Category { get; set; }
+		[ValidateNever]
 		public string ImgUrl { get; set; }
 	}
 }

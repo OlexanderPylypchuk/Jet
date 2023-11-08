@@ -10,9 +10,11 @@ namespace JetFilm.Areas.Admin.Controllers
 	public class FilmController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;
-		public FilmController(IUnitOfWork unitOfWork)
+		private readonly IWebHostEnvironment _webHostEnvironment;
+		public FilmController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
 		{
 			_unitOfWork = unitOfWork;
+			_webHostEnvironment = webHostEnvironment;
 		}
 
 		public IActionResult Index()
@@ -40,10 +42,21 @@ namespace JetFilm.Areas.Admin.Controllers
 			return View(filmVM);
 		}
 		[HttpPost]
-		public IActionResult Upsert(FilmVM obj, IFormFile file)
+		public IActionResult Upsert(FilmVM obj, IFormFile? file)
 		{
 			if (ModelState.IsValid)
 			{
+				string wwwRootPath = _webHostEnvironment.WebRootPath;
+				if (file != null)
+				{
+					string filename=Guid.NewGuid().ToString()+Path.GetExtension(file.FileName);
+					string filmPath=Path.Combine(wwwRootPath, @"images\film");
+					using (var filestream = new FileStream(Path.Combine(filmPath, filename),FileMode.Create))
+					{
+						file.CopyTo(filestream);
+					}
+					obj.Film.ImgUrl = @"\images\Film\" + filename;
+				}
 				_unitOfWork.Film.Add(obj.Film);
 				_unitOfWork.Save();
 				TempData["Success"] = "Successfully added category";
@@ -56,7 +69,7 @@ namespace JetFilm.Areas.Admin.Controllers
 					Text = u.Name,
 					Value = u.Id.ToString()
 				});
-				return View();
+				return View(obj);
 			}
 		}
 		public IActionResult Delete(int? id)

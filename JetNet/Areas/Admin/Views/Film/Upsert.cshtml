@@ -20,8 +20,7 @@
 		</div>
 		<div class="mb-3 row p-1">
 			<label asp-for="Film.Description" class="p-0"></label>
-			<input asp-for="Film.Description" class="form-control" autocomplete="off" />
-			<span asp-validation-for="Film.Description" class="text-danger"></span>
+			<textarea asp-for="Film.Description" class="p-0"></textarea>
 		</div>
 		<div class="mb-3 row p-1">
 			<label asp-for="Film.Price" class="p-0"></label>
@@ -35,7 +34,7 @@
 		</div>
 		<div class="mb-3 row p-1">
 			<label asp-for="Film.ImgUrl" class="p-0"></label>
-			<input type="file" class="form-control" autocomplete="off" />
+			<input type="file" name="file" class="form-control" />
 		</div>
 		<div class="mb-3 row p-1">
 			<select asp-for="Film.CategoryId" asp-items="@Model.Category" class=" form-select">
@@ -58,6 +57,14 @@
 </form>
 
 @section Scripts{
+	<script>
+		tinymce.init({
+			selector: 'textarea',
+			plugins: 'anchor autolink charmap codesample emoticons lists table visualblocks wordcount',
+			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough',
+			tinycomments_mode: 'embedded',
+		});
+	</script>
 	@{
 		<partial name="_ValidationScriptsPartial" />
 	}

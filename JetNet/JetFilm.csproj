@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Controllers\Create.cshtml" />
-    <Content Remove="Controllers\Index.cshtml" />
     <Content Remove="Views\Shared\_Notificaton.cshtml" />
   </ItemGroup>
 
@@ -37,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\images\film\" />
   </ItemGroup>
 
 </Project>
