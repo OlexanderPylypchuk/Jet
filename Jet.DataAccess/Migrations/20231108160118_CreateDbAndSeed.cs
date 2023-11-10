@@ -7,7 +7,7 @@
 namespace Jet.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class CreateDbAndSeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,11 +36,19 @@ namespace Jet.DataAccess.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Producer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    Score = table.Column<double>(type: "float", nullable: false)
+                    Score = table.Column<double>(type: "float", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FilmTable", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FilmTable_CategoryTable_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "CategoryTable",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -55,25 +63,30 @@ namespace Jet.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "FilmTable",
-                columns: new[] { "Id", "Description", "Price", "Producer", "Score", "Title" },
+                columns: new[] { "Id", "CategoryId", "Description", "ImgUrl", "Price", "Producer", "Score", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Some text about Avatar", 340, "Some dude", 9.8000000000000007, "Avatar" },
-                    { 2, "Some text about Avatar 2", 400, "Some dude", 10.0, "Avatar 2" },
-                    { 3, "Some text about Avatar: The last airbender", 340, "Some dude 2", 8.6999999999999993, "Avatar: The last airbender" },
-                    { 4, "Some text about Drive", 540, "Some dude", 7.0, "Drive" },
-                    { 5, "Some text about Drive", 540, "Some dude", 7.0, "Drive" }
+                    { 1, 1, "Some text about Avatar", "~/images/film/default.jpg", 340, "Some dude", 9.8000000000000007, "Avatar" },
+                    { 2, 2, "Some text about Avatar 2", "~/images/film/default.jpg", 400, "Some dude", 10.0, "Avatar 2" },
+                    { 3, 3, "Some text about Avatar: The last airbender", "~/images/film/default.jpg", 340, "Some dude 2", 8.6999999999999993, "Avatar: The last airbender" },
+                    { 4, 1, "Some text about Drive", "~/images/film/default.jpg", 540, "Some dude", 7.0, "Drive" },
+                    { 5, 2, "Some text about Drive", "~/images/film/default.jpg", 540, "Some dude", 7.0, "Drive" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FilmTable_CategoryId",
+                table: "FilmTable",
+                column: "CategoryId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CategoryTable");
+                name: "FilmTable");
 
             migrationBuilder.DropTable(
-                name: "FilmTable");
+                name: "CategoryTable");
         }
     }
 }

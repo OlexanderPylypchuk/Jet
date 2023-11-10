@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jet.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231101161641_Initial")]
-    partial class Initial
+    [Migration("20231108165801_EnableIdenttityInser")]
+    partial class EnableIdenttityInser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,8 +73,14 @@ namespace Jet.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Price")
@@ -93,13 +99,17 @@ namespace Jet.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("FilmTable");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Description = "Some text about Avatar",
+                            ImgUrl = "~/images/film/default.jpg",
                             Price = 340,
                             Producer = "Some dude",
                             Score = 9.8000000000000007,
@@ -108,7 +118,9 @@ namespace Jet.DataAccess.Migrations
                         new
                         {
                             Id = 2,
+                            CategoryId = 2,
                             Description = "Some text about Avatar 2",
+                            ImgUrl = "~/images/film/default.jpg",
                             Price = 400,
                             Producer = "Some dude",
                             Score = 10.0,
@@ -117,7 +129,9 @@ namespace Jet.DataAccess.Migrations
                         new
                         {
                             Id = 3,
+                            CategoryId = 3,
                             Description = "Some text about Avatar: The last airbender",
+                            ImgUrl = "~/images/film/default.jpg",
                             Price = 340,
                             Producer = "Some dude 2",
                             Score = 8.6999999999999993,
@@ -126,7 +140,9 @@ namespace Jet.DataAccess.Migrations
                         new
                         {
                             Id = 4,
+                            CategoryId = 1,
                             Description = "Some text about Drive",
+                            ImgUrl = "~/images/film/default.jpg",
                             Price = 540,
                             Producer = "Some dude",
                             Score = 7.0,
@@ -135,12 +151,25 @@ namespace Jet.DataAccess.Migrations
                         new
                         {
                             Id = 5,
+                            CategoryId = 2,
                             Description = "Some text about Drive",
+                            ImgUrl = "~/images/film/default.jpg",
                             Price = 540,
                             Producer = "Some dude",
                             Score = 7.0,
                             Title = "Drive"
                         });
+                });
+
+            modelBuilder.Entity("Jet.Models.Film", b =>
+                {
+                    b.HasOne("Jet.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

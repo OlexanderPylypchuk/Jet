@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jet.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231105151431_RemakeAdnSeedFilmTable")]
-    partial class RemakeAdnSeedFilmTable
+    [Migration("20231109104721_SeedFilmTable")]
+    partial class SeedFilmTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,9 @@ namespace Jet.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -106,6 +109,7 @@ namespace Jet.DataAccess.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Description = "Some text about Avatar",
+                            ImgUrl = "/images/film/default.jpg",
                             Price = 340,
                             Producer = "Some dude",
                             Score = 9.8000000000000007,
@@ -116,6 +120,7 @@ namespace Jet.DataAccess.Migrations
                             Id = 2,
                             CategoryId = 2,
                             Description = "Some text about Avatar 2",
+                            ImgUrl = "/images/film/default.jpg",
                             Price = 400,
                             Producer = "Some dude",
                             Score = 10.0,
@@ -126,6 +131,7 @@ namespace Jet.DataAccess.Migrations
                             Id = 3,
                             CategoryId = 3,
                             Description = "Some text about Avatar: The last airbender",
+                            ImgUrl = "~/images/film/default.jpg",
                             Price = 340,
                             Producer = "Some dude 2",
                             Score = 8.6999999999999993,
@@ -136,6 +142,7 @@ namespace Jet.DataAccess.Migrations
                             Id = 4,
                             CategoryId = 1,
                             Description = "Some text about Drive",
+                            ImgUrl = "/images/film/default.jpg",
                             Price = 540,
                             Producer = "Some dude",
                             Score = 7.0,
@@ -146,6 +153,7 @@ namespace Jet.DataAccess.Migrations
                             Id = 5,
                             CategoryId = 2,
                             Description = "Some text about Drive",
+                            ImgUrl = "/images/film/default.jpg",
                             Price = 540,
                             Producer = "Some dude",
                             Score = 7.0,

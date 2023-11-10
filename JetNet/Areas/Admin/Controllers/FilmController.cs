@@ -49,22 +49,37 @@ namespace JetFilm.Areas.Admin.Controllers
 				string wwwRootPath = _webHostEnvironment.WebRootPath;
 				if (file != null)
 				{
-					string filename=Guid.NewGuid().ToString()+Path.GetExtension(file.FileName);
-					string filmPath=Path.Combine(wwwRootPath, @"images\film");
-					using (var filestream = new FileStream(Path.Combine(filmPath, filename),FileMode.Create))
+					string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+					string filmPath = Path.Combine(wwwRootPath, @"images\film");
+					if (!string.IsNullOrEmpty(obj.Film.ImgUrl))//видалення старого зображення
+					{
+						var oldImgUrl = Path.Combine(wwwRootPath, obj.Film.ImgUrl.TrimStart('\\'));
+						if (System.IO.File.Exists(oldImgUrl))
+						{
+							System.IO.File.Delete(oldImgUrl);
+						}
+					}
+					using (var filestream = new FileStream(Path.Combine(filmPath, filename), FileMode.Create))
 					{
 						file.CopyTo(filestream);
 					}
 					obj.Film.ImgUrl = @"\images\Film\" + filename;
 				}
-				_unitOfWork.Film.Add(obj.Film);
+				if (obj.Film.Id == 0)
+				{
+					_unitOfWork.Film.Add(obj.Film);
+				}
+				else
+				{
+					_unitOfWork.Film.Update(obj.Film);
+				}
 				_unitOfWork.Save();
 				TempData["Success"] = "Successfully added category";
 				return RedirectToAction("Index");
 			}
 			else
 			{
-				obj.Category= _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+				obj.Category = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
 				{
 					Text = u.Name,
 					Value = u.Id.ToString()
