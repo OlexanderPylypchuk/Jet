@@ -19,8 +19,8 @@ namespace JetFilm.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			List<Film> objCategoryList = _unitOfWork.Film.GetAll().ToList();
-			return View(objCategoryList);
+			List<Film> objFilmList = _unitOfWork.Film.GetAll(includeProperties:"Category").ToList();
+			return View(objFilmList);
 		}
 		public IActionResult Upsert(int? id)
 		{
@@ -74,7 +74,7 @@ namespace JetFilm.Areas.Admin.Controllers
 					_unitOfWork.Film.Update(obj.Film);
 				}
 				_unitOfWork.Save();
-				TempData["Success"] = "Successfully added category";
+				TempData["Success"] = (obj.Film.Id==null|| obj.Film.Id == 0)?"Successfully film":"Successfully updated film";
 				return RedirectToAction("Index");
 			}
 			else
@@ -110,8 +110,17 @@ namespace JetFilm.Areas.Admin.Controllers
 			}
 			_unitOfWork.Film.Delete(filmfromdb);
 			_unitOfWork.Save();
-			TempData["Success"] = "Successfully deleted category";
+			TempData["Success"] = "Successfully deleted film";
 			return RedirectToAction("Index");
 		}
+		#region API CALLS
+		[HttpGet]
+		public IActionResult GetAll()
+		{
+			List<Film> objFilmList = _unitOfWork.Film.GetAll(includeProperties: "Category").ToList();
+			return Json(new {data = objFilmList });
+		}
+		#endregion
+
 	}
 }

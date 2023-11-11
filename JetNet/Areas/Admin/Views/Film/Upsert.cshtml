@@ -27,12 +27,12 @@
 				</div>
 				<div class="mb-3 p-3">
 					<label asp-for="Film.Price" class="p-0"></label>
-					<input asp-for="Film.Price" class="form-control" autocomplete="off" />
+					<input type="number" asp-for="Film.Price" class="form-control" autocomplete="off" />
 					<span asp-validation-for="Film.Price" class="text-danger"></span>
 				</div>
 				<div class="mb-3 p-3">
 					<label asp-for="Film.Score" class="p-0"></label>
-					<input asp-for="Film.Score" class="form-control" autocomplete="off" />
+					<input type="number" step="0.1" asp-for="Film.Score" class="form-control" autocomplete="off" />
 					<span asp-validation-for="Film.Score" class="text-danger"></span>
 				</div>
 				<div class="mb-3 p-3">

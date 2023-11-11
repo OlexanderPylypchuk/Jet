@@ -18,6 +18,7 @@ namespace Jet.DataAccess.Repository
 		{
 			_db = db;
 			this.dbSet=_db.Set<T>();
+			_db.FilmTable.Include(u => u.Category);
 		}
 		public void Add(T entity)
 		{
@@ -32,16 +33,30 @@ namespace Jet.DataAccess.Repository
 		{
 			dbSet.RemoveRange(entity);
 		}
-
-		public IEnumerable<T> GetAll()
+		//Category
+		public IEnumerable<T> GetAll(string? includeProperties=null)
 		{
 			IQueryable<T> query = dbSet;
+			if (!string.IsNullOrEmpty(includeProperties))
+			{
+				foreach (string include in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+				{
+					query = query.Include(include);
+				}
+			}
 			return query.ToList();
 		}
 
-		public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
+		public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
 		{
 			IQueryable<T> query = dbSet.Where(filter);
+			if (!string.IsNullOrEmpty(includeProperties))
+			{
+				foreach (string include in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+				{
+					query = query.Include(include);
+				}
+			}
 			return query.FirstOrDefault();
 		}
 	}

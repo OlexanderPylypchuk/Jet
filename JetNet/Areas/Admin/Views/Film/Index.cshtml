@@ -13,7 +13,7 @@
 				</a>
 			</div>
 		</div>
-		<table class="table table-bordered table-striped">
+		<table id="tblData" class="table table-bordered table-striped" style="width:100%">
 			<thead>
 				<tr>
 					<th class="bg-dark text-center">
@@ -28,37 +28,18 @@
 					<th class="bg-dark text-center">
 						Price (in gryvnias)
 					</th>
+				<th class="bg-dark text-center">
+					Score
+				</th>
+				<th class="bg-dark text-center">
+					Category
+				</th>
 					<th class="bg-dark text-center"></th>
 				</tr>
 			</thead>
-			<tbody>
-				@foreach (var obj in Model.OrderBy(u => u.Id))
-				{
-					<tr>
-						<td>
-							@obj.Title
-						</td>
-						<td>
-							@obj.Producer
-						</td>
-						<td>
-							@obj.Description
-						</td>
-						<td>
-							@obj.Price
-						</td>
-						<td>
-							<div class="w-75 btn-group" role="group">
-								<a asp-controller="Film" asp-route-id="@obj.Id" asp-action="Upsert" class="btn btn-primary mx-2">
-									<i class="bi bi-pencil-square"></i>Edit
-								</a>
-								<a asp-controller="Film" asp-route-id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">
-									<i class="bi bi-trash3"></i>Delete
-								</a>
-							</div>
-						</td>
-					</tr>
-				}
-			</tbody>
 		</table>
 	</div>
+
+@section Scripts{
+	<script src="~/js/film.js"></script>
+}
