@@ -87,38 +87,29 @@ namespace JetFilm.Areas.Admin.Controllers
 				return View(obj);
 			}
 		}
-		public IActionResult Delete(int? id)
-		{
-			if (id == null || id == 0)
-			{
-				return NotFound();
-			}
-			Film? filmfromdb = _unitOfWork.Film.GetFirstOrDefault(u => u.Id == id);
-			if (filmfromdb is null)
-			{
-				return NotFound();
-			}
-			return View(filmfromdb);
-		}
-		[HttpPost, ActionName("Delete")]
-		public IActionResult DeletePOST(int? id)
-		{
-			Film? filmfromdb=_unitOfWork.Film.GetFirstOrDefault(u=>u.Id == id);
-			if (filmfromdb is null)
-			{
-				return NotFound();
-			}
-			_unitOfWork.Film.Delete(filmfromdb);
-			_unitOfWork.Save();
-			TempData["Success"] = "Successfully deleted film";
-			return RedirectToAction("Index");
-		}
 		#region API CALLS
 		[HttpGet]
 		public IActionResult GetAll()
 		{
 			List<Film> objFilmList = _unitOfWork.Film.GetAll(includeProperties: "Category").ToList();
 			return Json(new {data = objFilmList });
+		}
+
+		public IActionResult Delete(int? id)
+		{
+			Film FilmToBeDeleted = _unitOfWork.Film.GetFirstOrDefault(u => u.Id == id);
+			if (FilmToBeDeleted is null)
+			{
+				return Json(new { success = false, message="Error while deleting" });
+			}
+			var oldImgUrl = Path.Combine(_webHostEnvironment.WebRootPath, FilmToBeDeleted.ImgUrl.TrimStart('\\'));
+			if (System.IO.File.Exists(oldImgUrl))
+			{
+				System.IO.File.Delete(oldImgUrl);
+			}
+			_unitOfWork.Film.Delete(FilmToBeDeleted);
+			_unitOfWork.Save();
+			return Json(new { success=true, message="Successfully deleted" });
 		}
 		#endregion
 

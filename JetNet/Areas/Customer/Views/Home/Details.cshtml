@@ -1,0 +1,29 @@
+﻿@model Film
+<form method="post">
+	<div class="m-3 bg-gradient text-center p-3">
+		<h4 class="text-info">@Model.Producer</h4>
+		<h1>@Model.Title</h1>
+		<p class="text-light-emphasis">@Model.Category.Name</p>
+	</div>
+	<div class="m-3 text-warning text-center">@Model.Score <i class="bi bi-star-fill"></i></div>
+	<div class="m-lg-5 ">
+		<img src="@Model.ImgUrl" class="rounded float-end" width="250" />
+		<div class=" m-lg-3 text-center text-primary">
+			<br /><br /> @Html.Raw(Model.Description)
+		</div>
+		
+		<div class="m-4 row py-lg-5">
+			<div class="text-center text-light p-5">
+				@Model.Price.ToString("c")
+			</div>
+			<div class="col-6 ">
+				<button type="submit" class="btn btn-primary form-control">Buy Tickets</button>
+			</div>
+			<div class="col-6 ">
+				<a asp-action="Index" class="btn btn-outline-secondary form-control">
+					Return Home
+				</a>
+			</div>
+		</div>
+	</div>
+</form>
