@@ -2,13 +2,16 @@
 using Jet.DataAccess.Data;
 using Jet.DataAccess.Repository.IRepository;
 using Jet.Models;
+using Jet.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace JetFilm.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+	//[Authorize(Roles = SD.Role_Admin)]
+	public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         public CategoryController(IUnitOfWork unitOfWork)

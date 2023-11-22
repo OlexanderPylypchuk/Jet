@@ -13,6 +13,7 @@ namespace Jet.DataAccess.Data
         }
         public DbSet<Category> CategoryTable { get; set; }
 		public DbSet<Film> FilmTable { get; set; }
+        public DbSet<ApplicationUser> ApplicationUserTable { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

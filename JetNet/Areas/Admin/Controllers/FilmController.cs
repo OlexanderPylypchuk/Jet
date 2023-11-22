@@ -1,12 +1,15 @@
 ﻿using Jet.DataAccess.Repository.IRepository;
 using Jet.Models;
 using Jet.Models.ViewModels;
+using Jet.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace JetFilm.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
 	public class FilmController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;

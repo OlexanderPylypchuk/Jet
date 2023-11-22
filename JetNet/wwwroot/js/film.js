@@ -4,7 +4,8 @@ function loadDataTable() {
         "ajax": { url:'/admin/film/getall'}, 
         "columns": [
             { data: 'title', "width": "12%" },
-            { data: 'producer',"width": "12%" },
+            { data: 'producer', "width": "12%" },
+            { data: 'description', "width": "12%" },
             { data: 'price', "width": "12%" },
             { data: 'score', "width": "12%" },
             { data: 'category.name', "width": "12%" },
@@ -19,8 +20,7 @@ function loadDataTable() {
                     </div>`
                 },
                 "width": "20%"
-            },
-            { data: 'description', "width": "12%" }
+            }
         ]
     });
 }
