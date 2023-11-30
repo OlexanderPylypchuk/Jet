@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\film\" />
+    <Folder Include="wwwroot\images\food\" />
   </ItemGroup>
 
 </Project>

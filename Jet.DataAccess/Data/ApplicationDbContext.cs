@@ -14,7 +14,10 @@ namespace Jet.DataAccess.Data
         public DbSet<Category> CategoryTable { get; set; }
 		public DbSet<Film> FilmTable { get; set; }
         public DbSet<ApplicationUser> ApplicationUserTable { get; set; }
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DbSet<Company> CompanyTable { get; set; }
+		public DbSet<Ticket> TicketTable { get; set; }
+		public DbSet<Food> FoodTable { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasData(

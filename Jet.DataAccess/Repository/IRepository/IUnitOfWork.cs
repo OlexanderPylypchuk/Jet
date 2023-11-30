@@ -10,6 +10,10 @@ namespace Jet.DataAccess.Repository.IRepository
 	{
 		ICategoryRepository Category { get; }
 		IFilmRepository Film { get; }
+		ICompanyRepository Company { get; }
+		IFoodRepository Food { get; }
+		ITicketRepository Ticket { get; }
+		IApplicationUserRepository ApplicationUser { get; }
 		void Save();
 	}
 }

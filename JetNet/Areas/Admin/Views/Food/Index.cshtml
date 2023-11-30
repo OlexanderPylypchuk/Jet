@@ -1,0 +1,39 @@
+﻿@model List<Food>
+
+
+<div class="container">
+	<div class="row pt-4 pb-4">
+		<div class="col-6">
+			<h2 class="text-primary">
+				List Of Categories
+			</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-controller="Food" asp-action="Upsert" class="btn btn-primary">
+				<i class="bi bi-screwdriver"></i>Create New Category
+			</a>
+		</div>
+	</div>
+
+
+	<table id="tblDataFood" class="table table-bordered table-striped" style="width:100%">
+		<thead>
+			<tr>
+				<th class="bg-dark text-center">
+					Title
+				</th>
+				<th class="bg-dark text-center">
+					Producer
+				</th>
+				<th class="bg-dark text-center">
+					Description
+				</th>
+				<th class="bg-dark text-center"></th>
+			</tr>
+		</thead>
+	</table>
+</div>
+
+@section Scripts {
+	<script src="~/js/food.js"></script>
+}			
