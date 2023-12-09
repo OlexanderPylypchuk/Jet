@@ -1,0 +1,62 @@
+﻿@model ShoppingCartVM
+
+<form method="post">
+	<br />
+	<div class="card shadow border-0">
+		<div class="card-header bg-secondary bg-gradient m-lg-0 py-4">
+			<div class="row px-4">
+				<div class="col-6">
+					<h5 class="pt-2 text-center">Your tickets</h5>
+				</div>
+			</div>
+		</div>
+		<div class="card-body my-4">
+			<div class="row">
+			</div>
+				<div class="col-md-10 offset-md-1">
+					@foreach(Ticket ticket in Model.TicketList)
+					{
+						<div class="row border-bottom pb-3">
+							<div class="d-none d-lg-block col-lg-1 text-center">
+								<img src="@ticket.Film.ImgUrl" class="rounded" width="100%" />
+							</div>
+							<div class="col-12 col-lg-6">
+								<h5 class="text-secondary text-info text-muted"><strong>@ticket.Film.Title</strong></h5>
+							@if (ticket.FoodId != -1)
+							{
+								<p><small>+ @ticket.Food.Name
+									</small></p>
+							}
+						</div>
+							<div class="col-12 col-lg-5	text-center row">
+								<div class="col-3 pt-2">
+									<h6 class="fw-semibold">@ticket.Film.Price.ToString("c")</h6>
+								@if (ticket.FoodId != -1)
+								{
+									<h6 class="fw-semibold">+@ticket.Food.Price.ToString("c")</h6>
+								}
+							</div>
+								<div class="col-3 col-sm-4 col-lg-2 offset-lg-1 text-right pt-2">
+									<a asp-action="remove" asp-route-id="@ticket.Id" class="btn btn-danger">
+										<i class="bi bi-trash3"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="row justify-content-center mb-3">
+				<div class="col-6 col-md-3">
+					<button type="submit" class="btn btn-primary form-control">@Model.PriceTotal.ToString("c")</button>
+				</div>
+				<div class="col-6 col-md-3">
+					<a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary form-control">
+						Return To List
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</form>

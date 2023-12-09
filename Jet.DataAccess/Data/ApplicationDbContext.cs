@@ -17,7 +17,8 @@ namespace Jet.DataAccess.Data
         public DbSet<Company> CompanyTable { get; set; }
 		public DbSet<Ticket> TicketTable { get; set; }
 		public DbSet<Food> FoodTable { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		public DbSet<Order> OrderTable { get; set; }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasData(
@@ -35,6 +36,9 @@ namespace Jet.DataAccess.Data
 				new Film { Id = 4, Title = "Drive", Description = "Some text about Drive", Producer = "Some dude", Price = 540, Score = 7 , CategoryId = 1, ImgUrl = @"/images/film/default.jpg" },
 				new Film { Id = 5, Title = "Drive", Description = "Some text about Drive", Producer = "Some dude", Price = 540, Score = 7, CategoryId=2, ImgUrl = @"/images/film/default.jpg" }
 				);
+            modelBuilder.Entity<Food>().HasData(
+                new Food { Id = -1, Name = "None", Amount = 0, IsFluid = false, Price = 0, ImgUrl = null }
+                ); ;
 		}
     }
 }

@@ -82,7 +82,7 @@ namespace JetFilm.Areas.Admin.Controllers
 			}
 			else
 			{
-				obj.Category = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+				obj.Category = _unitOfWork.Category.GetAll(null).Select(u => new SelectListItem
 				{
 					Text = u.Name,
 					Value = u.Id.ToString()

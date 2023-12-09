@@ -1,0 +1,42 @@
+﻿@model TicketVM
+
+<form method="post">
+	<div class="border p-3 my-4">
+		<div class="m-3 bg-gradient text-center p-3">
+			<h4 class="text-info">@Model.Film.Producer</h4>
+			<h1>@Model.Film.Title</h1>
+		</div>
+		<input asp-for="Film.Id" hidden />
+		<input asp-for="Ticket.Code" hidden />
+		<input asp-for="Ticket.ApplicationUserId" hidden />
+		<div asp-validation-summary="All"></div>
+		<div class="mb-3 pb-0 p-3">
+			<label asp-for="Ticket.Place" class=" p-0"></label>
+			<input type="number" asp-for="Ticket.Place" class="form-control" autocomplete="off" />
+			<span asp-validation-for="Ticket.Place" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 pb-0 p-3 ">
+			<select asp-for="Ticket.FoodId" asp-items="@Model.FoodList" class=" form-select">
+				<option disabled selected>--Select snack or drink--</option>
+			</select>
+			<label asp-for="Ticket.FoodId" class="ms-2" />
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-6 col-md-3">
+				<button type="submit" class="btn btn-primary form-control">Add to cart</button>
+			</div>
+			<div class="col-6 col-md-3">
+				<a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary form-control">
+					Return To List
+				</a>
+			</div>
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}
