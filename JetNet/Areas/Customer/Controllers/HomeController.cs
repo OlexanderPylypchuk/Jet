@@ -5,7 +5,9 @@ using Jet.DataAccess.Repository;
 using Jet.DataAccess.Repository.IRepository;
 using Jet.Models;
 using Jet.Models.ViewModels;
+using Jet.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -26,6 +28,13 @@ namespace JetFilm.Areas.Customer.Controllers
         public IActionResult Index()
         {
             IEnumerable<Film> filmList = _unitOfWork.Film.GetAll(includeProperties: "Category").ToList();
+            if (User.Identities.Any())
+            {
+                var claimIdentity = (ClaimsIdentity)User.Identity;
+                var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                if(userId!=null)
+                    HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.Ticket.GetAll().Where(u => u.ApplicationUserId == userId.Value && !u.IsBought).Count());
+            }
             return View(filmList);
         }
 
@@ -79,7 +88,7 @@ namespace JetFilm.Areas.Customer.Controllers
 				ticketVM.Ticket.ApplicationUserId = userId.Value;
 				ticketVM.Ticket.Code = Guid.NewGuid().ToString();
                 _unitOfWork.Ticket.Add(ticketVM.Ticket);
-                _unitOfWork.Save();
+				_unitOfWork.Save();
 				TempData["Success"] = "Successfully bougth ticket! Enjoy your movie!";
 				return RedirectToAction(nameof(Index));
 			}

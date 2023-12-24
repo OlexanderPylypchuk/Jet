@@ -19,6 +19,7 @@ namespace Jet.DataAccess.Repository
 			_db = db;
 			this.dbSet=_db.Set<T>();
 			_db.FilmTable.Include(u => u.Category);
+			_db.OrderTable.Include(u => u.User);
 		}
 		public void Add(T entity)
 		{

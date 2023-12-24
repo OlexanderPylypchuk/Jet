@@ -1,4 +1,6 @@
 ﻿@using Jet.Utility;
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,13 +28,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-secondary" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @if (User.IsInRole(SD.Role_Admin))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" asp-area="Admin" asp-controller="Order" asp-action="Index">Order Management</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee) || User.IsInRole(SD.Role_Cust))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" asp-area="Customer" asp-controller="ShoppingCart" asp-action="Summary">Your order</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-secondary" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-secondary" asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index">Cart</a>
+                            @await Component.InvokeAsync("ShoppingCart")
                         </li>
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole(SD.Role_Admin))
                         {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,6 +67,9 @@
                                         <a class="dropdown-item text-secondary" asp-area="Admin" asp-controller="Food" asp-action="Index">Food</a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item text-secondary" asp-area="Identity" asp-page="/Account/Register">Register Account</a>
+                                    </li>
                                 </ul>
                         </li>
                         }

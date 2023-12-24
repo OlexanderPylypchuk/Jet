@@ -10,6 +10,6 @@ namespace Jet.Models.ViewModels
 	public class ShoppingCartVM
 	{
 		public IEnumerable<Ticket> TicketList { get; set; }
-		public int PriceTotal {  get; set; }
+		public Order Order { get; set; }
 	}
 }

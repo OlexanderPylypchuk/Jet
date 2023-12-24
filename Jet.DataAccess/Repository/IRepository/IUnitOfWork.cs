@@ -14,6 +14,7 @@ namespace Jet.DataAccess.Repository.IRepository
 		IFoodRepository Food { get; }
 		ITicketRepository Ticket { get; }
 		IApplicationUserRepository ApplicationUser { get; }
+		IOrderRepository Order { get; }
 		void Save();
 	}
 }

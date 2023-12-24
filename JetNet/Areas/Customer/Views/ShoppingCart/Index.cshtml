@@ -14,13 +14,24 @@
 			<div class="row">
 			</div>
 				<div class="col-md-10 offset-md-1">
-					@foreach(Ticket ticket in Model.TicketList)
+				@if (!Model.TicketList.Any())
+				{
+					<div class="text-center text-warning m-3 p-3">You dont have any tickets yet :(</div>
+					<div class="row justify-content-center mb-3">
+						<div class="col-6 col-md-3">
+							<a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary form-control">
+								Return To List
+							</a>
+						</div>
+					</div>
+				}
+				@foreach(Ticket ticket in Model.TicketList)
 					{
 						<div class="row border-bottom pb-3">
 							<div class="d-none d-lg-block col-lg-1 text-center">
 								<img src="@ticket.Film.ImgUrl" class="rounded" width="100%" />
 							</div>
-							<div class="col-12 col-lg-6">
+							<div class="col-6 col-lg-5">
 								<h5 class="text-secondary text-info text-muted"><strong>@ticket.Film.Title</strong></h5>
 							@if (ticket.FoodId != -1)
 							{
@@ -29,11 +40,14 @@
 							}
 						</div>
 							<div class="col-12 col-lg-5	text-center row">
+								<div class="col-6 pt-2">
+									<h6>Seat number @ticket.Place</h6>
+								</div>
 								<div class="col-3 pt-2">
 									<h6 class="fw-semibold">@ticket.Film.Price.ToString("c")</h6>
 								@if (ticket.FoodId != -1)
 								{
-									<h6 class="fw-semibold">+@ticket.Food.Price.ToString("c")</h6>
+									<h6 class="fw-semibold"><small>+@ticket.Food.Price.ToString("c")</small></h6>
 								}
 							</div>
 								<div class="col-3 col-sm-4 col-lg-2 offset-lg-1 text-right pt-2">
@@ -45,10 +59,12 @@
 						</div>
 					}
 				</div>
-			</div>
+		</div>
+		@if (Model.TicketList.Any())
+		{
 			<div class="row justify-content-center mb-3">
 				<div class="col-6 col-md-3">
-					<button type="submit" class="btn btn-primary form-control">@Model.PriceTotal.ToString("c")</button>
+					<button type="submit" class="btn btn-primary form-control">Place Order</button>
 				</div>
 				<div class="col-6 col-md-3">
 					<a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary form-control">
@@ -56,7 +72,7 @@
 					</a>
 				</div>
 			</div>
-		</div>
+		}
 	</div>
 	
 </form>

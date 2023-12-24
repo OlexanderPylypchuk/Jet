@@ -1,0 +1,76 @@
+﻿@{
+	var status = Context.Request.Query["status"];
+	var processing = "text-primary";
+	var approved = "text-primary";
+	var delayed = "text-primary";
+	var all = "text-primary";
+
+	switch (status)
+	{
+		case "processing":
+			processing = "active bg-primary";
+			break;
+		case "approved":
+			approved = "active bg-primary";
+			break;
+		case "delayed":
+			delayed = "active bg-primary";
+			break;
+		default:
+			all = "active bg-primary";
+			break;
+	}
+}
+
+
+<div>
+	<div class="d-flex justify-content-between pb-5 pt-2">
+		<span></span>
+		<ul class="list-group list-group-horizontal-sm">
+			<li class="list-group-item @processing">
+				<a style="text-decoration:none" asp-controller="Order" asp-action="Index" asp-route-status="processing" >In process</a>
+			</li>
+			<li class="list-group-item @approved">
+				<a style="text-decoration:none" asp-controller="Order" asp-action="Index" asp-route-status="approved" >Approved</a>
+			</li>
+			<li class="list-group-item @delayed">
+				<a style="text-decoration:none" asp-controller="Order" asp-action="Index" asp-route-status="delayed" >Delayed</a>
+			</li>
+			<li class="list-group-item @all">
+				<a style="text-decoration:none" asp-controller="Order" asp-action="Index"  asp-route-status="all" >All</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div>
+	<table id="tblDataOrder" class="table table-bordered table-striped" style="width:100%">
+		<thead>
+			<tr>
+				<th class="bg-dark text-center">
+					Id
+				</th>
+				<th class="bg-dark text-center">
+					Email
+				</th>
+				<th class="bg-dark text-center">
+					Name
+				</th>
+				<th class="bg-dark text-center">
+					Total price
+				</th>
+				<th class="bg-dark text-center">
+					DateOfOrdering
+				</th>
+				<th class="bg-dark text-center">
+					Order status
+				</th>
+				<th class="bg-dark text-center"></th>
+			</tr>
+		</thead>
+	</table>
+</div>
+
+@section Scripts {
+	<script src="~/js/order.js"></script>
+}			

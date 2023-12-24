@@ -17,6 +17,7 @@ namespace Jet.DataAccess.Repository
 		public IFoodRepository Food { get; private set; }
 		public ITicketRepository Ticket { get; private set; }
 		public IApplicationUserRepository ApplicationUser { get; private set; }
+		public IOrderRepository Order { get; private set; }
 		public UnitOfWork(ApplicationDbContext db)
 		{
 			_db = db;
@@ -26,6 +27,7 @@ namespace Jet.DataAccess.Repository
 			Food = new FoodRepository(_db);
 			Ticket = new TicketRepository(_db);
 			ApplicationUser = new ApplicationUserRepository(_db);
+			Order = new OrderRepository(_db);
 		}
 
 		public void Save()

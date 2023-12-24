@@ -12,5 +12,14 @@ namespace Jet.Utility
 		public const string Role_Comp = "Company";
 		public const string Role_Admin = "Admin";
         public const string Role_Employee = "Employee";
-    }
+
+		public const string StatusPending = "Pending";
+		public const string StatusProcessing = "Processing";
+		public const string StatusApproved = "Approved";
+		public const string StatusCanceled = "Canceled";
+		public const string StatusRefunded = "Refunded";
+		public const string StatusDelayed = "Delayed";
+
+		public const string SessionCart = "SessionShoppingCart";
+	}
 }
