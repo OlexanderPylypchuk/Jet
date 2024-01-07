@@ -7,7 +7,14 @@
 			<div class="row p-2">
 				<div class="col-12 p-1">
 					<div class="card border-0 p-3 shadow border-top border-5 rounded bg-dark">
-						<img src="@film.ImgUrl" class="card-img-top rounded">
+						@if (film.FilmImages == null || film.FilmImages.Count() == 0)
+						{
+							<img src="https://placehold.co/500x750/png" class="card-img-top rounded" />
+						}
+						else
+						{
+							<img src="@film.FilmImages.FirstOrDefault().ImgUrl" class="card-img-top rounded">
+						}
 						<div class="card-body pb-0">
 							<div class="pl-1">
 								<p class="card-title h5 opacity-75 text-uppercase text-center">@film.Title</p>

@@ -10,16 +10,17 @@ using Jet.Models;
 
 namespace Jet.DataAccess.Repository
 {
-	public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
+	public class FilmImageRepository : Repository<FilmImage>, IFilmImageRepository
 	{
 		private readonly ApplicationDbContext _db;
-		public ApplicationUserRepository(ApplicationDbContext db): base(db)
+		public FilmImageRepository(ApplicationDbContext db): base(db)
 		{
 			_db = db;
 		}
-		public void Update(ApplicationUser applicationUser)
+
+		public void Update(FilmImage obj)
 		{
-			_db.Update(applicationUser);
+			_db.FilmImageTable.Update(obj);
 		}
 	}
 }

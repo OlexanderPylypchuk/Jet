@@ -8,11 +8,12 @@ using Jet.DataAccess.Repository.IRepository;
 
 namespace Jet.DataAccess.Repository
 {
-	public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
 	{
 		private readonly ApplicationDbContext _db;
 		public ICategoryRepository Category { get; private set; }
 		public IFilmRepository Film { get; private set; }
+		public IFilmImageRepository FilmImage { get; private set; }
         public ICompanyRepository Company { get; private set; }
 		public IFoodRepository Food { get; private set; }
 		public ITicketRepository Ticket { get; private set; }
@@ -28,6 +29,7 @@ namespace Jet.DataAccess.Repository
 			Ticket = new TicketRepository(_db);
 			ApplicationUser = new ApplicationUserRepository(_db);
 			Order = new OrderRepository(_db);
+			FilmImage = new FilmImageRepository(_db);	
 		}
 
 		public void Save()

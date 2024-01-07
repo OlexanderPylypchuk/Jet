@@ -92,6 +92,7 @@
     <script>
         $(document).ready(function(){
             $('#Input_Role').change(function(){
+                console.log('Script executed.')
                 var selectopt = $('#Input_Role Option:Selected').text();
                 if (selectopt == "Company") {
                     $('#Input_CompanyId').show();

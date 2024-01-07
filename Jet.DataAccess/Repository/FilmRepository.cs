@@ -18,9 +18,24 @@ namespace Jet.DataAccess.Repository
 			_db = db;
 		}
 
+		public Film GetLast()
+		{
+			return _db.FilmTable.OrderBy(u=>u.Id).LastOrDefault();
+		}
+
 		public void Update(Film obj)
 		{
-			_db.FilmTable.Update(obj);
+			var objFromDb=_db.FilmTable.FirstOrDefault(u=>u.Id == obj.Id);
+			if (objFromDb != null)
+			{
+				objFromDb.Description = objFromDb.Description;
+				objFromDb.Price= objFromDb.Price;
+				objFromDb.Producer= objFromDb.Producer;
+				objFromDb.CategoryId= objFromDb.CategoryId;
+				objFromDb.FilmImages= objFromDb.FilmImages;
+				objFromDb.Title= objFromDb.Title;
+				objFromDb.Score= objFromDb.Score;
+			}
 		}
 	}
 }

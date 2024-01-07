@@ -4,6 +4,7 @@ using Jet.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jet.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231227152940_UpdateUserTable")]
+    partial class UpdateUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,6 +107,9 @@ namespace Jet.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -130,6 +136,7 @@ namespace Jet.DataAccess.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Description = "Some text about Avatar",
+                            ImgUrl = "/images/film/default.jpg",
                             Price = 340,
                             Producer = "Some dude",
                             Score = 9.8000000000000007,
@@ -140,6 +147,7 @@ namespace Jet.DataAccess.Migrations
                             Id = 2,
                             CategoryId = 2,
                             Description = "Some text about Avatar 2",
+                            ImgUrl = "/images/film/default.jpg",
                             Price = 400,
                             Producer = "Some dude",
                             Score = 10.0,
@@ -150,6 +158,7 @@ namespace Jet.DataAccess.Migrations
                             Id = 3,
                             CategoryId = 3,
                             Description = "Some text about Avatar: The last airbender",
+                            ImgUrl = "/images/film/default.jpg",
                             Price = 340,
                             Producer = "Some dude 2",
                             Score = 8.6999999999999993,
@@ -160,6 +169,7 @@ namespace Jet.DataAccess.Migrations
                             Id = 4,
                             CategoryId = 1,
                             Description = "Some text about Drive",
+                            ImgUrl = "/images/film/default.jpg",
                             Price = 540,
                             Producer = "Some dude",
                             Score = 7.0,
@@ -170,33 +180,12 @@ namespace Jet.DataAccess.Migrations
                             Id = 5,
                             CategoryId = 2,
                             Description = "Some text about Drive",
+                            ImgUrl = "/images/film/default.jpg",
                             Price = 540,
                             Producer = "Some dude",
                             Score = 7.0,
                             Title = "Drive"
                         });
-                });
-
-            modelBuilder.Entity("Jet.Models.FilmImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("FilmId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImgUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FilmId");
-
-                    b.ToTable("FilmImageTable");
                 });
 
             modelBuilder.Entity("Jet.Models.Food", b =>
@@ -524,7 +513,7 @@ namespace Jet.DataAccess.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CompanyId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -551,17 +540,6 @@ namespace Jet.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Jet.Models.FilmImage", b =>
-                {
-                    b.HasOne("Jet.Models.Film", "Film")
-                        .WithMany("FilmImages")
-                        .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Film");
                 });
 
             modelBuilder.Entity("Jet.Models.Order", b =>
@@ -657,14 +635,11 @@ namespace Jet.DataAccess.Migrations
                 {
                     b.HasOne("Jet.Models.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("Jet.Models.Film", b =>
-                {
-                    b.Navigation("FilmImages");
                 });
 #pragma warning restore 612, 618
         }

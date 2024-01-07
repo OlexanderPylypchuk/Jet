@@ -7,8 +7,8 @@ using Jet.Models;
 
 namespace Jet.DataAccess.Repository.IRepository
 {
-	public interface IApplicationUserRepository:IRepository<ApplicationUser>
+	public interface IFilmImageRepository:IRepository<FilmImage>
 	{
-		public void Update(ApplicationUser applicationUser);
+		void Update(FilmImage obj);
 	}
 }

@@ -20,6 +20,8 @@ namespace Jet.DataAccess.Repository
 			this.dbSet=_db.Set<T>();
 			_db.FilmTable.Include(u => u.Category);
 			_db.OrderTable.Include(u => u.User);
+			_db.ApplicationUserTable.Include(u => u.Company);
+			_db.FilmTable.Include(u => u.FilmImages);
 		}
 		public void Add(T entity)
 		{

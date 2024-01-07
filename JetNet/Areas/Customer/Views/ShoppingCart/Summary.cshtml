@@ -2,39 +2,45 @@
 
 <form method="post">
 	<div class="row text-center justify-content-center p-4">
-		<div class="col-5 bg-gradient">
-			<div class="py-3">
-				<h4 class="text-danger"><strong>Tickets in your order</strong></h4>
-			</div>
-			@foreach(Ticket ticket in Model.TicketList.ToList())
-			{
+			<div class="col-5 bg-gradient">
+				<div class="py-3">
+					<h4 class="text-danger"><strong>Tickets in your order</strong></h4>
+				</div>
+				@foreach (Ticket ticket in Model.TicketList.ToList())
+				{
+					<div class="text-start p-2">
+						<div class="row">
+							<div class="col-2">
+								@if (ticket.Film.FilmImages == null || ticket.Film.FilmImages.Count() == 0)
+								{
+									<img src="https://placehold.co/500x750/png" class="rounded" width="100%" />
+								}
+								else
+								{
+									<img src="@ticket.Film.FilmImages.FirstOrDefault().ImgUrl" class="rounded" width="100%" />
+								}
+							</div>
+							<div class="col-6">
+								@ticket.Film.Title (+@ticket.Food.Name)
+							</div>
+							<div class="col-4 text-end">
+								@ticket.Place
+							</div>
+						</div>
+					</div>
+				}
 				<div class="text-start p-2">
 					<div class="row">
-						<div class="col-2">
-							<img src="@ticket.Film.ImgUrl" class="rounded" width="100%" />
-						</div>
 						<div class="col-6">
-							@ticket.Film.Title (+@ticket.Food.Name)
+							<button type="submit" class="btn btn-primary form-control">To Pay:@Model.Order.PriceTotal.ToString("c")</button>
 						</div>
-						<div class="col-4 text-end">
-							@ticket.Place
+						<div class="col-6 text-end">
+							<a asp-area="Customer" asp-controller="Home" asp-action="Index"
+							   class="btn btn-outline-danger">Back to films</a>
 						</div>
-					</div>
-				</div>
-			}
-			<div class="text-start p-2">
-				<div class="row">
-					<div class="col-6">
-						<button type="submit" class="btn btn-primary form-control">To Pay:@Model.Order.PriceTotal.ToString("c")</button>
-					</div>
-					<div class="col-6 text-end">
-						<a asp-area="Customer" asp-controller="Home" asp-action="Index"
-						class="btn btn-outline-danger">Back to films</a>
 					</div>
 				</div>
 			</div>
-			
-		</div>
 		<div class="text-warning text-center">
 			ATTENTION! YOUR ORDER WILL BE NULLIFIED IF NOT PAYED WITHIN 24 HOURS AFTER ORDERING! (30 minutes if show starts within 24 hours)
 		</div>

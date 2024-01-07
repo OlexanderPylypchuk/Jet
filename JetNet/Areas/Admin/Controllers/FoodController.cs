@@ -21,8 +21,7 @@ namespace JetFilm.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Food> obj=_unitOfWork.Food.GetAll().ToList();
-            return View(obj);
+            return View();
         }
         public IActionResult Upsert(int? id)
         {

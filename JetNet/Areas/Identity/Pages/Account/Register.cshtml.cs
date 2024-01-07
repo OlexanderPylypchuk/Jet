@@ -167,7 +167,7 @@ namespace JetFilm.Areas.Identity.Pages.Account
                 user.StreetAdress= Input.StreetAdress;
                 if (Input.Role == SD.Role_Comp)
                 {
-                    user.Company = Input.CompanyId;
+                    user.Company = _unitOfWork.Company.GetFirstOrDefault(u=>u.Id==Input.CompanyId);
                 }
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

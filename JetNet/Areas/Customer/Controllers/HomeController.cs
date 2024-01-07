@@ -27,7 +27,7 @@ namespace JetFilm.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Film> filmList = _unitOfWork.Film.GetAll(includeProperties: "Category").ToList();
+            IEnumerable<Film> filmList = _unitOfWork.Film.GetAll(includeProperties: "Category,FilmImages").ToList();
             if (User.Identities.Any())
             {
                 var claimIdentity = (ClaimsIdentity)User.Identity;
@@ -40,7 +40,7 @@ namespace JetFilm.Areas.Customer.Controllers
 
 		public IActionResult Details(int? id)
 		{
-			Film film = _unitOfWork.Film.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category");
+			Film film = _unitOfWork.Film.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category,FilmImages");
 			return View(film);
 		}
         [HttpPost]

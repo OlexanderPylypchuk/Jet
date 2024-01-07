@@ -10,5 +10,6 @@ namespace Jet.DataAccess.Repository.IRepository
 	public interface IFilmRepository:IRepository<Film>
 	{
 		void Update(Film obj);
+		Film GetLast();
 	}
 }

@@ -6,26 +6,64 @@
 		<p class="text-light-emphasis">@Model.Category.Name</p>
 	</div>
 	<div class="m-3 text-warning text-center">@Model.Score <i class="bi bi-star-fill"></i></div>
-	<div class="m-lg-5 ">
-		<img src="@Model.ImgUrl" class="rounded float-end" width="250" />
-		<div class=" m-lg-3 text-center text-primary">
-			<br /><br /> @Html.Raw(Model.Description)
+	<div class="m-lg-5 py-0">
+		<div class="row">
+			<div class="col-8 text-center text-primary">
+				<br /><br /> @Html.Raw(Model.Description)
+				<div class="m-4 row">
+					<div class="text-center text-light p-5">
+						@Model.Price.ToString("c")
+					</div>
+					<div class="col-6 ">
+						<a asp-action="BuyTicket" asp-route-id="@Model.Id" class="btn btn-primary bg-success border-0 form-control">
+							Buy Ticket
+						</a>
+					</div>
+					<div class="col-6 ">
+						<a asp-action="Index" class="btn btn-outline-secondary form-control">
+							Return Home
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-4 float-end">
+				@if (Model.FilmImages == null || Model.FilmImages.Count() == 0)
+				{
+					<img src="https://placehold.co/500x750/png" class="rounded float-end" width="250" />
+				}
+				else
+				{
+					<div class="my-0 m-5 p-5 float-end">
+						<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+							<div class="carousel-indicators">
+								@foreach (var ImageWithIndex in Model.FilmImages.Select(
+													(image, index) => new { FilmImage = image, Index = index }))
+								{
+									<button type="button" data-bs-target="#carouselExampleIndicators" class="@(ImageWithIndex.Index==0?"active":"")" data-bs-slide-to="@ImageWithIndex.Index" aria-current="true" aria-label="Slide @ImageWithIndex.Index+1"></button>
+								}
+							</div>
+							<div class="carousel-inner">
+								@foreach (var ImageWithIndex in Model.FilmImages.Select((image, index) => new { FilmImage = image, Index = index }))
+								{
+									<div class="@(ImageWithIndex.Index==0?"carousel-item active":"carousel-item")">
+										<img src="@ImageWithIndex.FilmImage.ImgUrl" class="d-block" width="250">
+									</div>
+								}
+
+							</div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
+					</div>
+				}
+			</div>
 		</div>
 		
-		<div class="m-4 row py-lg-5">
-			<div class="text-center text-light p-5">
-				@Model.Price.ToString("c")
-			</div>
-			<div class="col-6 ">
-				<a asp-action="BuyTicket" asp-route-id="@Model.Id" class="btn btn-primary bg-success border-0 form-control">
-					Buy Ticket
-				</a>
-			</div>
-			<div class="col-6 ">
-				<a asp-action="Index" class="btn btn-outline-secondary form-control">
-					Return Home
-				</a>
-			</div>
-		</div>
 	</div>
 </form>

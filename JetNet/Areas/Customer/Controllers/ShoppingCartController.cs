@@ -28,7 +28,7 @@ namespace JetFilm.Areas.Customer.Controllers
 			ShoppingCartVM.TicketList = _unitOfWork.Ticket.GetAll().Where(u => u.ApplicationUserId == userId.Value&&!u.IsBought).ToList();
 			foreach (Ticket ticket in ShoppingCartVM.TicketList)
 			{
-				ticket.Film = _unitOfWork.Film.GetFirstOrDefault(u => u.Id == ticket.FilmId);
+				ticket.Film = _unitOfWork.Film.GetFirstOrDefault(u => u.Id == ticket.FilmId, includeProperties:"FilmImages");
 				ticket.Food = _unitOfWork.Food.GetFirstOrDefault(u => u.Id == ticket.FoodId);
 			}
 			ShoppingCartVM.TicketList=ShoppingCartVM.TicketList.OrderBy(u => u.Film.Title);
@@ -95,10 +95,14 @@ namespace JetFilm.Areas.Customer.Controllers
 			ShoppingCartVM.TicketList = _unitOfWork.Ticket.GetAll().Where(u => u.ApplicationUserId == userId.Value && u.IsBought).ToList();
 			foreach (Ticket ticket in ShoppingCartVM.TicketList)
 			{
-				ticket.Film = _unitOfWork.Film.GetFirstOrDefault(u => u.Id == ticket.FilmId);
+				ticket.Film = _unitOfWork.Film.GetFirstOrDefault(u => u.Id == ticket.FilmId, includeProperties: "FilmImages");
 				ticket.Food = _unitOfWork.Food.GetFirstOrDefault(u => u.Id == ticket.FoodId);
 			}
 			ShoppingCartVM.TicketList = ShoppingCartVM.TicketList.OrderBy(u => u.Film.Title);
+			if (ShoppingCartVM.TicketList.Count() == 0)
+			{
+				return RedirectToAction(nameof(Index));
+			}
 			return View(ShoppingCartVM);
 		}
 		public IActionResult DeleteOrder()
